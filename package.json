@@ -10,9 +10,16 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "@react-native-async-storage/async-storage": "^1.15.9",
+    "axios": "^0.22.0",
     "react": "17.0.2",
     "react-native": "0.66.0",
+    "react-native-dotenv": "^3.2.0",
+    "react-native-file-viewer": "^2.1.4",
+    "react-native-fs": "^2.18.0",
     "react-native-gesture-handler": "^1.10.3",
+    "react-native-image-picker": "^4.1.1",
+    "react-native-vector-icons": "^8.1.0",
     "react-navigation": "^4.4.4"
   },
   "devDependencies": {
