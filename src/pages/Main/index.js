@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {View, Text, Image, TextInput, TouchableOpacity} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import api from '../../services/api';
+import api from '../../services/apiServices';
 
 import styles from './styles';
 
@@ -21,9 +21,9 @@ export default class Main extends Component {
   }
 
   handleSignIn = async () => {
-    const {data} = await api.post('/boxes', {
-      title: this.state.newBox,
-    });
+    const {newBox: title} = this.state;
+    if (!title.trim()) return;
+    const {data} = await api.post('/boxes', {title});
     await AsyncStorage.setItem('@RocketBox:box', data._id);
     this.props.navigation.navigate('Box');
   };
