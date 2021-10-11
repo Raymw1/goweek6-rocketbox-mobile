@@ -40,11 +40,17 @@ export default class Box extends Component {
   openFile = async file => {
     try {
       const filePath = `${RNFS.DocumentDirectoryPath}/${file.title}`;
-      await RNFS.downloadFile({
+      const response = await RNFS.downloadFile({
         fromUrl: file.url,
         toFile: filePath,
       });
-      await FileViewer.open(filePath);
+      response.promise.then(async res => {
+        if (res && res.statusCode === 200 && res.bytesWritten > 0) {
+          await FileViewer.open(filePath);
+        } else {
+          console.error('File not supported');
+        }
+      });
     } catch (error) {
       console.error('File not supported');
     }
@@ -72,7 +78,7 @@ export default class Box extends Component {
           data.append('file', {
             uri: file.uri,
             type: file.type,
-            name: `${prefix}.${ext}`,
+            name: `${generateName()}.${ext}`,
           });
           return api.post(`/boxes/${this.state.box._id}/files`, data);
         });
